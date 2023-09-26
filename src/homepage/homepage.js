@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCollection } from "../data/slices/collectionSlice";
 import { collectionSelector } from "../data/slices/collectionSlice";
-import { ArtBox } from "./homepage.style";
+import { ArtPiece, ArtCollection } from "./homepage.style";
 
 const HomePage = () => {
   const [imageConfig, setImageConfig] = useState("");
@@ -33,9 +33,9 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div>
+    <ArtCollection>
       <h1>Art Institute of Chicago</h1>
-      <ArtBox>
+      <ArtPiece>
         {imageData?.map((c) => (
           <div key={c.id}>
             <h3>{c.title}</h3>
@@ -45,8 +45,8 @@ const HomePage = () => {
             />
           </div>
         ))}
-      </ArtBox>
-    </div>
+      </ArtPiece>
+    </ArtCollection>
   );
 };
 
