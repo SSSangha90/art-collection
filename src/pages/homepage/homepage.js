@@ -1,16 +1,19 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import {
   fetchCollection,
   selectedArtwork,
-} from "../data/slices/collectionSlice";
-import { collectionSelector } from "../data/slices/collectionSlice";
+} from "../../data/slices/collectionSlice";
+import { collectionSelector } from "../../data/slices/collectionSlice";
 import { ArtPiece, ArtCollection } from "./homepage.style";
 
 const HomePage = () => {
   const [imageConfig, setImageConfig] = useState("");
   const [imageData, setImageData] = useState([]);
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const collection = useSelector(collectionSelector).collection;
 
@@ -36,8 +39,9 @@ const HomePage = () => {
   }, [collection]);
 
   const onArtClicked = useCallback(
-    (id) => {
-      dispatch(selectedArtwork(id));
+    (collection) => {
+      dispatch(selectedArtwork(collection.id));
+      navigate(`/${collection.title}`);
     },
     [dispatch]
   );
@@ -52,10 +56,10 @@ const HomePage = () => {
       </p>
       <ArtPiece>
         {imageData?.map((c, i) => (
-          <div key={c.id} onClick={() => onArtClicked(c.id)}>
+          <div key={c.id} onClick={() => onArtClicked(c)}>
             <h3>{c.title}</h3>
             <img
-              src={`${imageConfig}/${c.image_id}/full/843,/0/default.jpg`}
+              src={`${imageConfig}/${c.image_id}/full/843,/0/default.jpg`} // endpoint Chicago Art institute uses for providing images
               alt={c.title}
             />
           </div>
