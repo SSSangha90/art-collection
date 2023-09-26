@@ -1,6 +1,9 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCollection } from "../data/slices/collectionSlice";
+import {
+  fetchCollection,
+  selectedArtwork,
+} from "../data/slices/collectionSlice";
 import { collectionSelector } from "../data/slices/collectionSlice";
 import { ArtPiece, ArtCollection } from "./homepage.style";
 
@@ -30,14 +33,26 @@ const HomePage = () => {
 
   useEffect(() => {
     fetchImageData();
-  }, []);
+  }, [collection]);
+
+  const onArtClicked = useCallback(
+    (id) => {
+      dispatch(selectedArtwork(id));
+    },
+    [dispatch]
+  );
 
   return (
     <ArtCollection>
       <h1>Art Institute of Chicago</h1>
+      <p>
+        Explore thousands of artworks in the museum’s collection—from our
+        renowned icons to lesser-known works from every corner of the globe—as
+        well as our books, writings, reference materials, and other resources.
+      </p>
       <ArtPiece>
-        {imageData?.map((c) => (
-          <div key={c.id}>
+        {imageData?.map((c, i) => (
+          <div key={c.id} onClick={() => onArtClicked(c.id)}>
             <h3>{c.title}</h3>
             <img
               src={`${imageConfig}/${c.image_id}/full/843,/0/default.jpg`}

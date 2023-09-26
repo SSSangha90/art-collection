@@ -4,6 +4,12 @@ export const ArtCollection = styled.div`
   h1 {
     font-size: 3rem;
   }
+
+  p {
+    font-size: 1.3rem;
+    padding: 0 20%;
+    width: 60%;
+  }
 `;
 
 export const ArtPiece = styled.div`
@@ -12,6 +18,7 @@ export const ArtPiece = styled.div`
   flex-wrap: wrap;
   justify-content: space-evenly;
   position: relative;
+  padding-bottom: 2rem;
 
   > div {
     cursor: pointer;

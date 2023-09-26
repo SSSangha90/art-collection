@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
   collection: [],
+  selected: {},
 };
 
 export const fetchCollection = createAsyncThunk(
@@ -17,7 +18,14 @@ export const fetchCollection = createAsyncThunk(
 export const collectionSlice = createSlice({
   name: "collection",
   initialState,
-  reducers: {},
+  reducers: {
+    selectedArtwork: (state, { payload }) => {
+      const selectedPiece = state.collection.filter(
+        (col) => col.id === payload
+      );
+      state.selected = selectedPiece;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchCollection.pending, (state) => {
       state.collection = [];
@@ -31,5 +39,6 @@ export const collectionSlice = createSlice({
   },
 });
 
+export const { selectedArtwork } = collectionSlice.actions;
 export const collectionSelector = (state) => state.collection;
 export default collectionSlice.reducer;
