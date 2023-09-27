@@ -1,6 +1,13 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  span {
+    font-size: 2rem;
+    position: absolute;
+    left: 2rem;
+    cursor: pointer;
+  }
+
   img {
     width: 20rem;
     height: auto;

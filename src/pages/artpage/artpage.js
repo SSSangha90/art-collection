@@ -1,9 +1,13 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import { collectionSelector } from "../../data/slices/collectionSlice";
 import { Container } from "./artpage.style";
 
 const ArtPage = () => {
+  const navigate = useNavigate();
+
   const art = useSelector(collectionSelector).selected[0];
   const image = useSelector(collectionSelector).images;
 
@@ -13,8 +17,15 @@ const ArtPage = () => {
     }
   }, [art.description]);
 
+  const navigateBack = useCallback(() => {
+    navigate(`/`);
+  }, [navigate]);
+
   return (
     <Container>
+      <span class="material-symbols-outlined" onClick={navigateBack}>
+        arrow_back
+      </span>
       <h1>{art.title}</h1>
       <div>
         <img
