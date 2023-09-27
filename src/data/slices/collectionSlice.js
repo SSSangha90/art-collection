@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
   collection: [],
+  images: {},
   selected: {},
 };
 
@@ -11,6 +12,16 @@ export const fetchCollection = createAsyncThunk(
     const res = await fetch("https://api.artic.edu/api/v1/artworks").then(
       (res) => res.json().then((data) => data.data)
     );
+    return res;
+  }
+);
+
+export const fetchImages = createAsyncThunk(
+  "collections/getImages",
+  async (imageIds) => {
+    const res = await fetch(
+      `https://api.artic.edu/api/v1/artworks?ids=${imageIds}&fields=id,title,image_id`
+    ).then((res) => res.json());
     return res;
   }
 );
@@ -35,6 +46,16 @@ export const collectionSlice = createSlice({
     });
     builder.addCase(fetchCollection.fulfilled, (state, { payload }) => {
       state.collection = payload;
+    });
+
+    builder.addCase(fetchImages.pending, (state) => {
+      state.images = {};
+    });
+    builder.addCase(fetchImages.rejected, (state) => {
+      state.images = {};
+    });
+    builder.addCase(fetchImages.fulfilled, (state, { payload }) => {
+      state.images = payload;
     });
   },
 });
