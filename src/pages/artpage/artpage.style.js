@@ -1,11 +1,15 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  h1 {
+    margin-top: 5rem;
+  }
   span {
     font-size: 2rem;
     position: absolute;
-    left: 2rem;
+    left: 3rem;
     cursor: pointer;
+    top: 2rem;
   }
 
   img {
@@ -17,6 +21,9 @@ export const Container = styled.div`
   .description {
     padding: 1rem 10%;
     text-align: center;
+    border: 0.5rem solid rgba(231, 189, 135, 0.2);
+    margin: 2rem;
+    font-size: 1.125rem;
 
     p:last-child {
       text-align: left;

@@ -23,10 +23,10 @@ const ArtPage = () => {
 
   return (
     <Container>
+      <h1>{art.title}</h1>
       <span class="material-symbols-outlined" onClick={navigateBack}>
         arrow_back
       </span>
-      <h1>{art.title}</h1>
       <div>
         <img
           src={`${image.config.iiif_url}/${art.image_id}/full/843,/0/default.jpg`} // endpoint Chicago Art institute uses for providing images
